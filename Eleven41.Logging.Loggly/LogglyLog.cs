@@ -82,18 +82,33 @@ namespace Eleven41.Logging
 
 		public void Log(LogLevels level, string sFormat, params object[] args)
 		{
+			// Call the data version
+			Log(level, null, sFormat, args);
+		}
+
+		public void Log(LogLevels level, Dictionary<string, object> messageData, string sFormat, params object[] args)
+		{
 			if (_logger == null)
 				return;
 
 			// Start with the standard properties
 			Dictionary<string, object> data = new Dictionary<string, object>(this.Data);
 
+			// Add the message data
+			if (messageData != null)
+			{
+				foreach (var kvp in messageData)
+				{
+					data[kvp.Key] = kvp.Value;
+				}
+			}
+
 			// Add the new stuff for this message
 			data["message"] = String.Format(sFormat, args);
 			data["level"] = level.ToString();
 			data["date"] = DateTime.UtcNow;
 			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode();
-			
+
 			// Serialize and dispatch
 			string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
 			if (this.IsSync)
