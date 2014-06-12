@@ -83,10 +83,20 @@ namespace Eleven41.Logging
 		public void Log(LogLevels level, string sFormat, params object[] args)
 		{
 			// Call the data version
-			Log(level, null, sFormat, args);
+			Log(DateTime.UtcNow, level, null, sFormat, args);
+		}
+
+		public void Log(DateTime date, LogLevels level, string sFormat, params object[] args)
+		{
+			Log(date, level, null, sFormat, args);
 		}
 
 		public void Log(LogLevels level, Dictionary<string, object> messageData, string sFormat, params object[] args)
+		{
+			Log(DateTime.UtcNow, level, null, sFormat, args);
+		}
+
+		public void Log(DateTime date, LogLevels level, Dictionary<string, object> messageData, string sFormat, params object[] args)
 		{
 			if (_logger == null)
 				return;
@@ -106,7 +116,7 @@ namespace Eleven41.Logging
 			// Add the new stuff for this message
 			data["message"] = String.Format(sFormat, args);
 			data["level"] = level.ToString();
-			data["date"] = DateTime.UtcNow;
+			data["date"] = date;
 			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode();
 
 			// Serialize and dispatch
