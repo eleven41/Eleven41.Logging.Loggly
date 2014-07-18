@@ -104,6 +104,9 @@ namespace Eleven41.Logging
 			// Start with the standard properties
 			Dictionary<string, object> data = new Dictionary<string, object>(this.Data);
 
+			// These fields are allowed to be overwritten by the caller
+			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode();
+
 			// Add the message data
 			if (messageData != null)
 			{
@@ -117,7 +120,6 @@ namespace Eleven41.Logging
 			data["message"] = String.Format(sFormat, args);
 			data["level"] = level.ToString();
 			data["date"] = date;
-			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode();
 
 			// Serialize and dispatch
 			string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
