@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eleven41.Logging.Loggly", "Eleven41.Logging.Loggly\Eleven41.Logging.Loggly.csproj", "{CFFCEB96-C4A0-4A1D-B3A1-C5F8B3C42B33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E0C1D039-2293-45F8-AD20-D48C5E8B3B6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicExample1", "Samples\BasicExample1\BasicExample1.csproj", "{7D8D5FB0-63C6-46EA-873B-9686387292C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadedExample1", "Samples\ThreadedExample1\ThreadedExample1.csproj", "{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +21,20 @@ Global
 		{CFFCEB96-C4A0-4A1D-B3A1-C5F8B3C42B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFFCEB96-C4A0-4A1D-B3A1-C5F8B3C42B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFFCEB96-C4A0-4A1D-B3A1-C5F8B3C42B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8D5FB0-63C6-46EA-873B-9686387292C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8D5FB0-63C6-46EA-873B-9686387292C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8D5FB0-63C6-46EA-873B-9686387292C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8D5FB0-63C6-46EA-873B-9686387292C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D8D5FB0-63C6-46EA-873B-9686387292C9} = {E0C1D039-2293-45F8-AD20-D48C5E8B3B6E}
+		{EB79E6FC-3382-42E9-9C3C-52CE6D649DDE} = {E0C1D039-2293-45F8-AD20-D48C5E8B3B6E}
 	EndGlobalSection
 EndGlobal

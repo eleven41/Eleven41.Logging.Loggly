@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CFFCEB96-C4A0-4A1D-B3A1-C5F8B3C42B33}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7D8D5FB0-63C6-46EA-873B-9686387292C9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Eleven41.Logging</RootNamespace>
-    <AssemblyName>Eleven41.Logging.Loggly</AssemblyName>
+    <RootNamespace>BasicExample1</RootNamespace>
+    <AssemblyName>BasicExample1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,23 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Eleven41.Logging, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LogglyTest\packages\Eleven41.Logging.1.3.1\Lib\net20\Eleven41.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Loggly, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\loggly-csharp.4.5.1.11\lib\net45\Loggly.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Loggly.Config, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\loggly-csharp-config.4.5.1.11\lib\net45\Loggly.Config.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Eleven41.Logging.1.3.1\Lib\net20\Eleven41.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,13 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogglyBase.cs" />
-    <Compile Include="LogglyLog.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThreadedLogglyLog.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Eleven41.Logging.Loggly.nuspec">
+    <ProjectReference Include="..\..\Eleven41.Logging.Loggly\Eleven41.Logging.Loggly.csproj">
+      <Project>{cffceb96-c4a0-4a1d-b3a1-c5f8b3c42b33}</Project>
+      <Name>Eleven41.Logging.Loggly</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

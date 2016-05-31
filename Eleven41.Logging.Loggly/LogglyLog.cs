@@ -6,84 +6,21 @@ using System.Threading.Tasks;
 
 namespace Eleven41.Logging
 {
-    public class LogglyLog : ILog
+	public class LogglyLog : LogglyBase, ILog
     {
-		private Loggly.Logger _logger;
-
 		public LogglyLog()
 		{
-			string logglyKey = System.Configuration.ConfigurationManager.AppSettings["Loggly.Key"];
-			if (String.IsNullOrEmpty(logglyKey))
-				throw new Exception("Loggly.Key empty or missing from appSettings.");
-
-			_logger = new Loggly.Logger(logglyKey);
-			this.Data = new Dictionary<string, object>();
 		}
 
 		public LogglyLog(Dictionary<string, object> data)
+			: base(data)
 		{
-			string logglyKey = System.Configuration.ConfigurationManager.AppSettings["Loggly.Key"];
-			if (String.IsNullOrEmpty(logglyKey))
-				throw new Exception("Loggly.Key empty or missing from appSettings.");
-
-			_logger = new Loggly.Logger(logglyKey);
-			if (data != null)
-				this.Data = new Dictionary<string, object>(data);
-			else
-				this.Data = new Dictionary<string, object>();
 		}
-
-		public LogglyLog(string logglyKey)
-		{
-			_logger = new Loggly.Logger(logglyKey);
-			this.Data = new Dictionary<string, object>();
-		}
-
-		public LogglyLog(string logglyKey, Dictionary<string, object> data)
-		{
-			_logger = new Loggly.Logger(logglyKey);
-			if (data != null)
-				this.Data = new Dictionary<string, object>(data);
-			else
-				this.Data = new Dictionary<string, object>();
-		}
-
-		public LogglyLog(LogglyLog other)
-		{
-			_logger = other._logger;
-			this.Data = new Dictionary<string, object>();
-		}
-
-		public LogglyLog(LogglyLog other, Dictionary<string, object> data)
-		{
-			_logger = other._logger;
-			if (data != null)
-				this.Data = new Dictionary<string, object>(data);
-			else
-				this.Data = new Dictionary<string, object>();
-		}
-
-		private Dictionary<string, object> _data;
-
-		public Dictionary<string, object> Data
-		{
-			get { return _data; }
-			set 
-			{
-				// Ensure we this.Data is never null
-				if (value == null)
-					throw new ArgumentNullException("Data", "Data must not be null");
-
-				_data = value; 
-			}
-		}
-
-		public bool IsSync { get; set; }
 
 		public void Log(LogLevels level, string sFormat, params object[] args)
 		{
 			// Call the data version
-			Log(DateTime.UtcNow, level, null, sFormat, args);
+			Log(this.DateTimeProvider.GetCurrentDateTime(), level, null, sFormat, args);
 		}
 
 		public void Log(DateTime date, LogLevels level, string sFormat, params object[] args)
@@ -93,12 +30,12 @@ namespace Eleven41.Logging
 
 		public void Log(LogLevels level, Dictionary<string, object> messageData, string sFormat, params object[] args)
 		{
-			Log(DateTime.UtcNow, level, null, sFormat, args);
+			Log(this.DateTimeProvider.GetCurrentDateTime(), level, null, sFormat, args);
 		}
 
 		public void Log(DateTime date, LogLevels level, Dictionary<string, object> messageData, string sFormat, params object[] args)
 		{
-			if (_logger == null)
+			if (_client == null)
 				return;
 
 			// Start with the standard properties
@@ -122,11 +59,20 @@ namespace Eleven41.Logging
 			data["date"] = date;
 
 			// Serialize and dispatch
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+			var logglyEvent = new Loggly.LogglyEvent();
+			foreach (var key in data.Keys)
+			{
+				logglyEvent.Data.Add(key, data[key]);
+			}
+
 			if (this.IsSync)
-				_logger.LogSync(json, true);
+			{
+				var response = _client.Log(logglyEvent).Result;
+			}
 			else
-				_logger.Log(json, true);
+			{
+				_client.Log(logglyEvent).ConfigureAwait(false);
+			}
 		}
 	}
 }
