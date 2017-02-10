@@ -42,7 +42,7 @@ namespace Eleven41.Logging
 			Dictionary<string, object> data = new Dictionary<string, object>(this.Data);
 
 			// These fields are allowed to be overwritten by the caller
-			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode();
+			data["thread"] = System.Threading.Thread.CurrentThread.GetHashCode().ToString();
 
 			// Add the message data
 			if (messageData != null)
