@@ -29,6 +29,11 @@ namespace Eleven41.Logging
 			this.DateTimeProvider = new Eleven41.Logging.DateTimeProviders.UtcDateTimeProvider();
 		}
 
+		public static void SetLogglyCustomerToken(string customerToken)
+		{
+			Loggly.Config.LogglyConfig.Instance.CustomerToken = customerToken;
+		}
+
 		private Dictionary<string, object> _data;
 
 		public Dictionary<string, object> Data

@@ -19,6 +19,9 @@ namespace BasicExample1
 			log.Log(LogLevels.Info, "Info {0}, {1}, {2}", 1, 2, 3);
 			log.Log(LogLevels.Warning, "Warning {0}, {1}, {2}", 1, 2, 3);
 			log.Log(LogLevels.Error, "Error {0}, {1}, {2}", 1, 2, 3);
+
+			Console.WriteLine("Press Enter to continue...");
+			Console.ReadLine();
 		}
 	}
 }
